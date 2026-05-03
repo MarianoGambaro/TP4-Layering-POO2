@@ -1,6 +1,5 @@
 package tp1.vista;
 
-import tp1.model.Participante;
 import tp1.model.Participantes;
 
 import java.awt.ComponentOrientation;

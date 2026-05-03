@@ -5,11 +5,13 @@ import java.time.MonthDay;
 
 public class Empleado {
     private String nombre;
+    private String apellido;
     private String email;
     private LocalDate fechaNacimiento;
 
-    public Empleado(String nombre, String email, LocalDate fechaNacimiento){
+    public Empleado(String nombre, String apellido, LocalDate fechaNacimiento, String email){
         this.nombre = nombre;
+        this.apellido = apellido;
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
     }
@@ -21,4 +23,5 @@ public class Empleado {
     public String email(){
         return email;
     }
+
 }

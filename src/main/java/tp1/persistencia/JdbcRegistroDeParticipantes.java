@@ -10,10 +10,10 @@ import java.sql.SQLException;
 
 public class JdbcRegistroDeParticipantes implements RegistroParticipantes {
 
-    String url;
-    String user;
-    String password;
-    private Connection dbConn;
+    private String url;
+    private String user;
+    private String password;
+    //private Connection dbConn;
 
     public JdbcRegistroDeParticipantes(String url, String user, String password){
         this.url = url;
