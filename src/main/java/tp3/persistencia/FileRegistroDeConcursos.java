@@ -21,6 +21,7 @@ public class FileRegistroDeConcursos implements RegistroConcursos {
         this.path = path;
     }
 
+    //lectura de concursos desde archivo txt
     @Override
     public List<Concurso> concursos() {
         List<Concurso> concursos = new ArrayList<>();

@@ -21,6 +21,9 @@ public class Concurso {
         return !hoy.isBefore(this.inicioDeInscripcion) && !hoy.isAfter(finDeInscripcion);
     }
 
+    public int id(){
+        return id;
+    }
     public String toString(){
         return this.nombre;
     }

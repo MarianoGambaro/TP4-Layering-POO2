@@ -2,24 +2,23 @@ package tp3.model;
 
 import javax.swing.*;
 
-//no cree una clase participante ya que me parecio que sería una clase anemica solo con atributos
+//no cree una clase participante ya que me parecio que sería una clase anémica solo con atributos
 public class Inscripcion {
-    private int id;
+    private String dni;
     private int idConcurso;
     private String nombre;
     private String apellido;
-    private String dni;
     private String email;
     private String telefono;
 
-    public Inscripcion(String nombre, String apellido, String dni, String email, String telefono) {
-        if(!validarNombre(nombre)){
+    public Inscripcion(String nombre, String apellido, String dni, String telefono, String email, int idConcurso) {
+        if(validarVacio(nombre)){
             throw new RuntimeException("Nombre no puede ser vacio");
         }
-        if(!validarApellido(apellido)){
+        if(validarVacio(apellido)){
             throw new RuntimeException("Apellido no puede ser vacio");
         }
-        if(!validarDni(dni)){
+        if(validarVacio(dni)){
             throw new RuntimeException("Dni no puede ser vacio");
         }
         if(!checkEmail(email)){
@@ -33,24 +32,45 @@ public class Inscripcion {
         this.dni = dni;
         this.email = email;
         this.telefono = telefono;
+        this.idConcurso = idConcurso;
     }
 
-
-    private boolean validarNombre(String nombre){
-        return nombre.isEmpty();
-    }
-    private boolean validarApellido(String apellido){
-        return apellido.isEmpty();
-    }
-    private boolean validarDni(String dni){
-        return dni.isEmpty();
-    }
     private boolean checkEmail(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        return email.matches(regex);
+        return email != null && email.matches(regex);
+    }
+    private boolean validarVacio(String txt){
+        return txt == null || txt.trim().isEmpty();
     }
     private boolean checkPhone(String telefono) {
         String regex = "\\d{4}-\\d{6}";
-        return telefono.matches(regex);
+        return telefono != null && telefono.matches(regex);
+    }
+
+
+    //El archivo inscriptos.txt debe quedar así:
+    //apellido, nombre, teléfono, email, idconcurso
+    public String toCsv() {
+        return apellido + ", " + nombre + ", " + telefono + ", "
+                + email + ", " + idConcurso + System.lineSeparator();
+    }
+
+    public String nombre(){
+        return nombre;
+    }
+    public String apellido() {
+        return apellido;
+    }
+    public String telefono() {
+        return telefono;
+    }
+    public String email() {
+        return email;
+    }
+    public String dni() {
+        return dni;
+    }
+    public int idConcurso() {
+        return idConcurso;
     }
 }

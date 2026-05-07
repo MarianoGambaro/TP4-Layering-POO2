@@ -1,8 +1,8 @@
 package tp3.vista;
 
-import tp3.model.Concurso;
-import tp3.model.Concursos;
+import tp3.model.*;
 import tp3.persistencia.FileRegistroDeConcursos;
+import tp3.persistencia.FileRegistroDeInscripciones;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +11,10 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
-public class RadioCompetition {
+public class PantallaDeInscripcion {
+    private RegistroConcursos registroConcursos;
+    private RegistroInscripciones registroInscripciones;
+
     private JPanel contentPane;
     private JLabel lblName;
     private JTextField txtName;
@@ -27,7 +30,10 @@ public class RadioCompetition {
     private JButton btnOk;
     private JLabel lblCompetition;
 
-    public RadioCompetition() {
+    public PantallaDeInscripcion(RegistroConcursos registroConcursos, RegistroInscripciones registroInscripciones) {
+        this.registroConcursos = registroConcursos;
+        this.registroInscripciones = registroInscripciones;
+
         var frame = new JFrame("Inscription to Competition");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(100, 100, 451, 229);
@@ -65,23 +71,41 @@ public class RadioCompetition {
         lblCompetition = new JLabel("Concurso:");
         comboBox = new JComboBox<Concurso>();
         todosLosConcursos();
+
     }
 
     private void todosLosConcursos() {
-        Concursos concursos = new Concursos(// hardcodeo el path pero podria crear la instancia en el main e inyectarsela a la UI
-                new FileRegistroDeConcursos("C:/Users/marti/OneDrive/Documents/UNI/3er año 26/Objetos 2/TP/-salida.txt"));
+        //carga los concursos disponibles para su inscripcion en el combobox
+        Concursos concursos = new Concursos(registroConcursos);
         List<Concurso> concursosAbiertos = concursos.concursosAbiertos();
         for (Concurso c : concursosAbiertos){
             comboBox.addItem(c);
         }
     }
     private void saveInscription() {
-        //if (validations()) {
+            if(!validations()){
+                return;
+            }
             // Guarda en inscriptos.txt los datos de la persona y el concurso elegido
-        //}
+
+            String nombre = txtName.getText();
+            String apellido = txtLastName.getText();
+            String telefono = txtPhone.getText();
+            String email = txtEmail.getText();
+            String dni = txtId.getText();
+            Concurso concurso = (Concurso)comboBox.getSelectedItem();
+
+            Inscripcion insc = new Inscripcion(nombre,apellido,dni,telefono,email,concurso.id());
+            try {
+                registroInscripciones.registrarInscripcion(insc);
+                JOptionPane.showMessageDialog(this.contentPane,"¡Inscripción guardada con éxito!");
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this.contentPane, "Error al guardar: " + ex.getMessage());
+            }
+
     }
     private boolean validations() {
-        if (this.comboBox.getSelectedIndex() <= 0) {
+        if (this.comboBox.getSelectedIndex() < 0) {
             JOptionPane.showMessageDialog(this.contentPane, "Debe elegir un Concurso");
             return false;
         }
