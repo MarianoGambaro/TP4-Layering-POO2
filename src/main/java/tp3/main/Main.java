@@ -28,8 +28,8 @@ public class Main {
     private void start() {
         //var txtConcursos = new FileRegistroDeConcursos("C:/Users/marti/OneDrive/Documents/UNI/3er año 26/Objetos 2/TP/TP 4 - Layers/-Concursos.txt");
         //var txtInscripciones = new FileRegistroDeInscripciones("C:/Users/marti/OneDrive/Documents/UNI/3er año 26/Objetos 2/TP/TP 4 - Layers/-Inscripciones.txt");
-        var concursosBD = new JdbcRegistroDeConcursos("jdbc:mysql://localhost:3306/poo2_tp4_LayersPt3","root","74631");
-        var inscripcionesBD = new JdbcRegistroDeInscripciones("jdbc:mysql://localhost:3306/poo2_tp4_LayersPt3","root","74631");
+        var concursosBD = new JdbcRegistroDeConcursos("jdbc:mysql://localhost:3306/poo2_tp4_LayersPt3","root","");
+        var inscripcionesBD = new JdbcRegistroDeInscripciones("jdbc:mysql://localhost:3306/poo2_tp4_LayersPt3","root","");
         new PantallaDeInscripcion(concursosBD, inscripcionesBD);
     }
 }
